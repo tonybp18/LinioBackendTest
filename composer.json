@@ -1,0 +1,31 @@
+{
+	"name": "linio/recruiting",
+    "description": "This is the Linio Backend Test.",
+    "authors": [
+        {
+            "name": "Tony Briceño Perea",
+            "email": "tonybp18@gmail.com"
+        }
+    ],
+	"autoload": {
+        "psr-4": {
+            "Linio\\Recruiting\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Linio\\Recruiting\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.5.0"
+    },
+    "minimum-stability": "stable",
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "quicktest": "vendor/bin/phpunit --no-coverage"
+    }
+}
