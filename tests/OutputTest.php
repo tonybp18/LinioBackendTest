@@ -1,6 +1,5 @@
 <?php
-
-namespace Linio\Recruiting\tests;
+namespace Linio\Recruiting;
 
 class OutputTest extends \PHPUnit_Framework_TestCase
 {
