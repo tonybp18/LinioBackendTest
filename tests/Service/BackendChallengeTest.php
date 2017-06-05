@@ -146,7 +146,7 @@ class BackendChallengeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($nbrs , $othersCount);
     }
 
-    /**
+	/**
      * @runInSeparateProcess
 	 * @covers ::printChallenge
 	 */
@@ -156,5 +156,27 @@ class BackendChallengeTest extends \PHPUnit_Framework_TestCase
     	$backendChallenge->printChallenge();
 
         $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
+    }
+
+    /**
+     * @runInSeparateProcess
+	 * @covers ::printChallenge
+	 */
+	public function test_printChallenge_prints_valid_XML_structure()
+    {
+    	$backendChallenge = new BackendChallenge(new XmlOutputFormat);    	
+    	$backendChallenge->printChallenge(1);
+
+    	$outputString = ob_get_contents();
+
+        $expected = new \DOMDocument('1.0', "UTF-8");
+        $expected->loadXML('<root><item key=""/></root>');
+
+        $actual = new \DOMDocument('1.0', "UTF-8");
+        $actual->loadXML($outputString);
+
+        $this->assertEqualXMLStructure(
+        	$expected->firstChild, $actual->firstChild, true
+        );
     }
 }
