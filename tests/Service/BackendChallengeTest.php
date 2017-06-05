@@ -29,4 +29,22 @@ class BackendChallengeTest extends \PHPUnit_Framework_TestCase
     {
     	$backendChallenge = new BackendChallenge();    	
     }
+
+    /**
+     * @runInSeparateProcess
+	 * @covers ::printChallenge
+	 */
+	public function test_printChallenge_prints_100_elements_by_default()
+    {
+    	$backendChallenge = new BackendChallenge(new DefaultOutputFormat);
+    	$backendChallenge->printChallenge();
+
+    	$outputString = ob_get_contents();
+        $outputString = rtrim($outputString);
+
+        $outputStringAsArray = explode(' ', $outputString);
+
+        // Checks default number of elements
+        $this->assertCount(100, $outputStringAsArray);
+    }
 }
