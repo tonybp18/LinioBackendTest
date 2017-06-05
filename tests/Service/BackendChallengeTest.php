@@ -21,4 +21,12 @@ class BackendChallengeTest extends \PHPUnit_Framework_TestCase
     	$this->assertNotNull($backendChallenge);
     }
 
+    /**
+	 * @covers ::__construct
+	 * @expectedException \TypeError
+	 */
+	public function test_construct_must_recive_an_IOutputFormat_implementation()
+    {
+    	$backendChallenge = new BackendChallenge();    	
+    }
 }
