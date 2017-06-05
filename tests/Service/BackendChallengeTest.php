@@ -145,4 +145,16 @@ class BackendChallengeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($div3 , $linioCount);
         $this->assertEquals($nbrs , $othersCount);
     }
+
+    /**
+     * @runInSeparateProcess
+	 * @covers ::printChallenge
+	 */
+	public function test_printChallenge_prints_valid_JSON()
+    {
+    	$backendChallenge = new BackendChallenge(new JsonOutputFormat);
+    	$backendChallenge->printChallenge();
+
+        $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
+    }
 }
