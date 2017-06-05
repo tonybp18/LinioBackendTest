@@ -40,6 +40,8 @@ class BackendChallenge
 	 */
 	public function printChallenge(int $limit = 100)
 	{
+		$array = array();
+
 		for ( $i = 1 ; $i <= $limit ; $i++ )
 		{
 			$msg = $i;
