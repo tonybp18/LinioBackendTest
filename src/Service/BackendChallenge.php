@@ -18,9 +18,9 @@ class BackendChallenge
 	/**
 	 * Creates a BackendChallenge instance with the DefaultOutputFormat as default value.
 	 */
-	function __construct()
+	function __construct(IOutputFormat $outputFormat)
 	{
-		$this->outputFormat = new DefaultOutputFormat;
+		$this->outputFormat = $outputFormat;
 	}
 	
 	/**
@@ -36,6 +36,7 @@ class BackendChallenge
 	 * Prints all the numbers from 1 to $limit. For multiples of 3, 
 	 * instead of the number will print "Linio". For multiples of 5 will print "IT".
 	 * For numbers which are multiples of both 3 and 5 will print "Linianos".
+	 * The output format is stablished by the IOutputFormat implementation assigned.
 	 * @param  int|integer $limit Set the top limit for printing numbers, default is 100.
 	 */
 	public function printChallenge(int $limit = 100)
