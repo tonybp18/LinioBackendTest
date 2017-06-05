@@ -4,29 +4,37 @@ namespace Linio\Recruiting;
 // Require composer autoloader
 require __DIR__ . '/vendor/autoload.php';
 
-for ( $i = 1 ; $i <= 100 ; $i++ )
+use Linio\Recruiting\Service\BackendChallenge;
+
+use Linio\Recruiting\Interfaces\IOutputFormat;
+
+use Linio\Recruiting\Implementations\DefaultOutputFormat;
+use Linio\Recruiting\Implementations\JsonOutputFormat;
+use Linio\Recruiting\Implementations\XmlOutputFormat;
+
+// Query string definition "limit" 
+$_GET += array('limit' => 100);
+
+// Query string definition "output_format" 
+$_GET += array('output_format' => null);
+
+// Choosing an output format according to the "output_format" query string 
+switch( $_GET['output_format'] )
 {
-	$msg = $i;
+	case "json":
+		$outputFormat = new JsonOutputFormat;
+		break;
 
-	switch ( $i % 3 )
-	{
-		case 0:
-			$msg = "Linio";
-	}
-	
-	switch ( $i % 5 )
-	{
-		case 0:
-			$msg = "IT";
-	}
+	case "xml":
+		$outputFormat = new XmlOutputFormat;
+		break;
 
-	switch ( $i % 3 + $i % 5 )
-	{
-		case 0:
-			$msg = "Linianos";
-	}
-
-	echo $msg . " ";
+	default:
+		$outputFormat = new DefaultOutputFormat;
 }
+
+$backendChallenge = new BackendChallenge($outputFormat);
+
+$backendChallenge->printChallenge($_GET['limit']);
 
 ?>
