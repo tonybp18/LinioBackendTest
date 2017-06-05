@@ -3,7 +3,9 @@ namespace Linio\Recruiting;
 
 class OutputTest extends \PHPUnit_Framework_TestCase
 {
-
+    /**
+     * @runInSeparateProcess
+     */
     public function testDefaultOutput()
     {
         require 'index.php';
@@ -29,12 +31,15 @@ class OutputTest extends \PHPUnit_Framework_TestCase
                 case 'Linio':
                     $linioCount++;
                     break;
+
                 case 'IT':
                     $itCount++;
                     break;
+
                 case 'Linianos':
                     $linianosCount++;
                     break;
+
                 default:
                     $othersCount++;
             }
@@ -49,7 +54,5 @@ class OutputTest extends \PHPUnit_Framework_TestCase
         $expectedArraySubset = array(1, 2, "Linio", 4, "IT", "Linio", 7, 8, "Linio", "IT", 11, "Linio", 13, 14, "Linianos");
 
         $this->assertArraySubset($expectedArraySubset, $outputStringAsArray);
-
     }
-
 }
