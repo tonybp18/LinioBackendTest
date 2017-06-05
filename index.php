@@ -1,4 +1,8 @@
 <?php
+namespace Linio\Recruiting;
+
+// Require composer autoloader
+require __DIR__ . '/vendor/autoload.php';
 
 for ( $i = 1 ; $i <= 100 ; $i++ )
 {
