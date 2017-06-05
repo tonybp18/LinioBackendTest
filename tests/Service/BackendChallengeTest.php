@@ -81,4 +81,68 @@ class BackendChallengeTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $outputStringAsArray);
         $this->assertEquals("", $outputStringAsArray[0]);
     }
+
+    /**
+     * Check if printChallenge prints N elements correctly.
+     * N is a random number from 1 to 500.
+     * @runInSeparateProcess
+	 * @covers ::printChallenge
+	 */
+	public function test_printChallenge_prints_N_elements_correctly()
+    {
+    	$backendChallenge = new BackendChallenge(new DefaultOutputFormat);
+    	
+    	define("TOP", rand(1, 500));
+
+    	// Call with parameter equals 0
+    	$backendChallenge->printChallenge(TOP);
+
+    	$outputString = ob_get_contents();
+        $outputString = rtrim($outputString);
+
+        $outputStringAsArray = explode(' ', $outputString);
+        
+        // Checks if has one element and is an empty string
+        $this->assertCount(TOP, $outputStringAsArray);
+        //$this->assertEquals(TOP, $outputStringAsArray[0]);
+        
+		// Expected values
+        $div15 = floor(TOP / 15);
+        $div5  = floor(TOP / 5 ) - $div15;
+        $div3  = floor(TOP / 3 ) - $div15;
+        $nbrs  = TOP - $div15 - $div5 - $div3;
+
+		// Actual values
+		// Check number of elements of each type
+        $linioCount = 0;
+        $itCount = 0;
+        $linianosCount = 0;
+        $othersCount = 0;
+
+        foreach ($outputStringAsArray as $value)
+        {
+            switch ($value)
+            {
+                case 'Linio':
+                    $linioCount++;
+                    break;
+
+                case 'IT':
+                    $itCount++;
+                    break;
+
+                case 'Linianos':
+                    $linianosCount++;
+                    break;
+
+                default:
+                    $othersCount++;
+            }
+        }
+
+        $this->assertEquals($div15, $linianosCount);
+        $this->assertEquals($div5 , $itCount);
+        $this->assertEquals($div3 , $linioCount);
+        $this->assertEquals($nbrs , $othersCount);
+    }
 }
